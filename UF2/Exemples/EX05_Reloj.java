@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 public class EX05_Reloj extends Applet implements Runnable {
 	private Thread fil = null;
 	private Font fuente;
