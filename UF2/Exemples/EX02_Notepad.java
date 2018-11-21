@@ -1,6 +1,5 @@
 package Exemples;
 
-import java.util.*;
 import java.io.*;
  
 class EX02_Notepad {
