@@ -15,5 +15,4 @@ public class Fil1 extends Thread {
 		
 		System.out.println(counter.getC());
 	}
-
 }
