@@ -5,6 +5,8 @@ import java.io.*;
 
 public class servidortcp {
 	public static void main(String argv[]) {
+		
+		// Declaramos las variables que vamos a necesitar
 		ServerSocket socketEscolta;
 		boolean fi = false;
 		String missatge = "";

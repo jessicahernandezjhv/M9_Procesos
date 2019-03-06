@@ -4,61 +4,61 @@ import java.net.*;
 import java.io.*;
 
 public class clienteudp {
+	public static void main(String argv[]) {
+		if (argv.length != 1) {
+			System.err.println("Us: java clientetcp servidor");
+			System.exit(1);
+		}
+		
+		/* Declaramos e instanciamos la variable que nos permite leer los datos 
+		 * introducidos por teclado */
+		BufferedReader teclat = new BufferedReader(new InputStreamReader(System.in));
 
-   public static void main(String argv[]) {
+		// Declaramos las variables que vamos a necesitar
+		DatagramSocket socket;
+		DatagramPacket paquet;
+		DatagramPacket paquetServidor;
+		InetAddress address;
+		byte[] missatge_bytes = new byte[256];
+		byte[] missatgeServidor_bytes = new byte[256];
+		String missatge="";
+		String missatgeServidor="";
 
-      if (argv.length != 1) {
-         System.err.println("Us: java clientetcp servidor");
-         System.exit(1);
-      }
-      
-      BufferedReader teclat = new BufferedReader(new InputStreamReader(System.in));
+		try {
 
-      DatagramSocket socket;
-      DatagramPacket paquet;
-      DatagramPacket paquetServidor;
-      InetAddress address;
-      byte[] missatge_bytes = new byte[256];
-      byte[] missatgeServidor_bytes = new byte[256];
-      String missatge="";
-      String missatgeServidor="";
+			socket = new DatagramSocket();
+			address=InetAddress.getByName(argv[0]);
 
-      try {
-    	  
-	 socket = new DatagramSocket();
-         address=InetAddress.getByName(argv[0]);
-         
-         
-         missatge = "AVE";
+			missatge = "AVE";
 
-	 missatge_bytes = missatge.getBytes();
-         paquet = new DatagramPacket(missatge_bytes,missatge.length(),address,6000);
-         socket.send(paquet);
+			missatge_bytes = missatge.getBytes();
+			paquet = new DatagramPacket(missatge_bytes,missatge.length(),address,6000);
+			socket.send(paquet);
 
-	 missatgeServidor_bytes = new byte[256];
-	 paquetServidor = new DatagramPacket(missatgeServidor_bytes,256);
-         socket.receive(paquetServidor);
-	 missatgeServidor = new String(missatgeServidor_bytes).trim();
-         System.out.println(missatgeServidor);
-        
-         do {
-            	missatge = teclat.readLine();
-		missatge_bytes = missatge.getBytes();
-         	paquet = new DatagramPacket(missatge_bytes,missatge.length(),address,6000);
-         	socket.send(paquet);
+			missatgeServidor_bytes = new byte[256];
+			paquetServidor = new DatagramPacket(missatgeServidor_bytes,256);
+			socket.receive(paquetServidor);
+			missatgeServidor = new String(missatgeServidor_bytes).trim();
+			System.out.println(missatgeServidor);
 
-		missatgeServidor_bytes = new byte[256];
-		paquetServidor = new DatagramPacket(missatgeServidor_bytes,256);
-	        socket.receive(paquetServidor);
-		missatgeServidor = new String(missatgeServidor_bytes).trim();
-	        System.out.println(missatgeServidor);
-        } while (!missatge.startsWith("fi"));
+			do {
+				missatge = teclat.readLine();
+				missatge_bytes = missatge.getBytes();
+				paquet = new DatagramPacket(missatge_bytes,missatge.length(),address,6000);
+				socket.send(paquet);
 
-        socket.close();
-      } 
-      catch (Exception e) {
-         System.err.println(e.getMessage());
-         System.exit(1);
-      }
-   }
+				missatgeServidor_bytes = new byte[256];
+				paquetServidor = new DatagramPacket(missatgeServidor_bytes,256);
+				socket.receive(paquetServidor);
+				missatgeServidor = new String(missatgeServidor_bytes).trim();
+				System.out.println(missatgeServidor);
+			} while (!missatge.startsWith("fi"));
+
+			socket.close();
+		} 
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+			System.exit(1);
+		}
+	}
 }

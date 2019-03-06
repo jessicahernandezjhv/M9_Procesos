@@ -4,9 +4,9 @@ import java.net.*;
 import java.io.*;
 
 public class servidorudp {
-
 	public static void main(String argv[]) {
-
+		
+		// Declaramos las variables que vamos a necesitar
 		DatagramSocket socket;
 		String missatge = "";
 		String missatgeServidor = "";
