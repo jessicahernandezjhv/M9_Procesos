@@ -25,13 +25,14 @@ public class clientetcp {
 
 		try {
 			/* Coge el primer parámetro introducido por argumentos
-			 * (debe ser una URL) y retorna una instancia de tipo dirección IP calculada a partir de ese parametro */
+			 * (debe ser una URL) y retorna una instancia de tipo dirección 
+			 * IP calculada a partir de ese parametro */
 			address = InetAddress.getByName(argv[0]); 
 
 			/* Se abre un socket conectado al servidor y al puerto estándar de echo */
 			socket = new Socket(address, 6001);
 
-			// Extraemos los Streams de entrada y de salida del cliente
+			// Extraemos los Streams de entrada y de salida del socket
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
@@ -51,13 +52,16 @@ public class clientetcp {
 				// Leemos los datos de la petición y los imprimimos por pantalla
 				missatgeServidor = in.readUTF();
 				System.out.println(missatgeServidor);
-			} while (!missatge.startsWith("fi"));
+			} while (!missatge.startsWith("fi")); 
+			/* Mientras el mensaje del usuario no empiece con "fi", el programa
+			 * seguirá permitiendo introducir mensajes nuevos */
 
-
+			/* Se cierra el canal de entrada y salida */
 			in.close();
 			out.close();
 			socket.close(); // Se cierra el socket
 		} 
+		
 		catch (Exception e) {
 			System.err.println(e.getMessage());
 			System.exit(1);
